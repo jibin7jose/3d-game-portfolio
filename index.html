@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Jibin Jose – Software Engineer | Interactive 3D Portfolio. Explore my skills, experience, and projects in an immersive 3D environment."/>
+  <title>Jibin Jose | 3D Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    console.log('Index.html: head script running');
+    window.startLoadingFlow = function() {
+      console.log('Global startLoadingFlow triggered');
+      const intro = document.getElementById('intro-screen');
+      const loader = document.getElementById('loading-screen');
+      if (intro) intro.classList.add('fade-out');
+      if (loader) loader.classList.add('active');
+      // Dispatch event for main.js to catch
+      window.dispatchEvent(new CustomEvent('start-portfolio'));
+    };
+  </script>
+</head>
+<body>
+
+  <!-- Background Overlays -->
+  <div id="vignette"></div>
+  <div id="scanline"></div>
+  <div id="noise-overlay"></div>
+  <div id="cinematic-bars">
+    <div class="bar-top"></div>
+    <div class="bar-bottom"></div>
+  </div>
+
+  <!-- Intro Screen -->
+  <div id="intro-screen">
+    <div class="intro-content">
+      <div class="intro-logo">
+        <span class="intro-initials">JJ</span>
+      </div>
+      <h1 class="intro-name">JIBIN JOSE</h1>
+      <p class="intro-title">Software Engineer · Frontend Developer</p>
+      <div class="intro-divider"></div>
+      <p class="intro-hint">Walk through the forest to discover my story</p>
+      <button id="enter-btn" onclick="window.startLoadingFlow()">
+        <span>Enter Portfolio</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="intro-particles" id="intro-particles"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <div class="loading-icon">
+        <div class="loading-ring"></div>
+        <div class="loading-ring ring2"></div>
+        <div class="loading-ring ring3"></div>
+      </div>
+      <h2 class="loading-title">INITIALIZING SYSTEM</h2>
+      <div class="loading-bar-container">
+        <div class="loading-bar" id="loading-bar"></div>
+      </div>
+      <p class="loading-percent" id="loading-percent">0%</p>
+      <p id="loading-status">Fetching environment assets...</p>
+      <button id="start-exp-btn">Dive Into Scene</button>
+    </div>
+  </div>
+
+  <!-- Cinematic Overlay -->
+  <div id="cinematic-overlay">
+    <div class="cinematic-subtitle" id="cinematic-text">A Journey Through Innovation</div>
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div id="hud-name">JIBIN JOSE</div>
+    <div id="hud-role">Software Engineer</div>
+    <div id="hud-compass">
+      <div id="compass-needle"></div>
+    </div>
+    <div id="stamina-container">
+      <div id="stamina-fill"></div>
+      <div id="stamina-label">STAMINA</div>
+    </div>
+    <div id="system-stats">
+      <div class="stat-row"><span>COORD_X</span><span id="stat-x">0.00</span></div>
+      <div class="stat-row"><span>COORD_Z</span><span id="stat-z">0.00</span></div>
+      <div class="stat-row"><span>STATUS</span><span class="stat-ok">ONLINE</span></div>
+    </div>
+  </div>
+
+  <!-- Controls Hint -->
+  <div id="controls-hint">
+    <div class="control-item"><kbd>W A S D</kbd><span>Move</span></div>
+    <div class="control-item"><kbd>SHIFT</kbd><span>Sprint</span></div>
+    <div class="control-item"><kbd>Mouse</kbd><span>Look</span></div>
+    <div class="control-item"><kbd>E</kbd><span>Interact</span></div>
+    <div class="control-item"><kbd>V</kbd><span>Scan</span></div>
+    <div class="control-item"><kbd>C</kbd><span>Cinema</span></div>
+    <div class="control-item"><kbd>R</kbd><span>Rain</span></div>
+  </div>
+
+  <!-- Point Markers (Injected by JS) -->
+  <div id="markers-container"></div>
+
+  <!-- Crosshair -->
+  <div id="crosshair">
+    <div class="ch-h"></div>
+    <div class="ch-v"></div>
+    <div class="ch-circle"></div>
+  </div>
+
+  <!-- Interaction Hint -->
+  <div id="interact-hint" class="hidden">
+    <div class="interact-icon">E</div>
+    <span>Press to explore</span>
+  </div>
+
+  <!-- Modal Panel -->
+  <div id="resume-modal" class="hidden">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-panel">
+      <button class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-header">
+        <div class="modal-icon-wrap" id="modal-icon-wrap">
+          <span id="modal-icon">🌟</span>
+        </div>
+        <div>
+          <div class="modal-category" id="modal-category">Category</div>
+          <h2 class="modal-title" id="modal-title">Title</h2>
+        </div>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Mini Map -->
+  <div id="minimap-container">
+    <canvas id="minimap"></canvas>
+    <div id="minimap-label">RESUME MAP</div>
+  </div>
+
+  <!-- Point Counter -->
+  <div id="point-counter">
+    <span id="points-visited">0</span><span>/9 Points</span>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
