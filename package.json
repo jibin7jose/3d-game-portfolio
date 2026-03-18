@@ -1,7 +1,7 @@
 {
   "name": "jibin-jose-3d-portfolio",
   "version": "1.0.0",
-  "description": "Ultra-premium 3D interactive portfolio by Jibin Jose",
+  "description": "Ultra-premium 3D portfolio - LFS Fixed Version",
   "type": "module",
   "scripts": {
     "dev":   "vite --port 3000",
