@@ -105,6 +105,3 @@ This isn't just a static resume—it's a playable environment. Walk through a de
 **Jibin Jose**  
 Software Engineer & Frontend Developer
 
---
-
-*Check out the live version on [Vercel](https://your-deployment-link.vercel.app) (if applicable)*
